@@ -16,42 +16,61 @@ _Include the initializer and public methods with all parameters and return value
 ```ruby
 # EXAMPLE
 
-class Reminder
-  def initialize(name) # name is a string
+class Tasks
+  def initialize 
     # ...
   end
 
-  def remind_me_to(task) # task is a string
-    # No return value
+  def add(task) # task is a string
+    # adds new task
+    # returns nothing
   end
 
-  def remind()
-    # Throws an exception if no task is set
-    # Otherwise, returns a string reminding the user to do the task
+  def list
+    # returns list of todos
+  end
+  
+  def complete(task)
+    # Deletes chosen todo from the list
+    # fails if the task doesnt exist
+    # returns nothing
   end
 end
 ```
 
 ## 3. Create Examples as Tests
 
-_Make a list of examples of how the class will behave in different situations._
-
 ```ruby
-# EXAMPLE
 
 # 1
-reminder = Reminder("Kay")
-reminder.remind_me_to("Walk the dog")
-reminder.remind() # => "Walk the dog, Kay!"
+todo = Tasks.new
+todo.list
+# => []
 
 # 2
-reminder = Reminder("Kay")
-reminder.remind() # fails with "No task set."
+todo = Tasks.new
+todo.list.add("Wash the cat")
+# => ["Wash the cat"]
 
 # 3
-reminder = Reminder("Kay")
-reminder.remind_me_to("")
-reminder.remind() # => ", Kay!"
+todo = Tasks.new
+todo.list.add("Wash the cat")
+todo.list.add("Wash the dog")
+# => ["Wash the cat", "Wash the dog"]
+
+# 4
+todo = Tasks.new
+todo.list.add("Wash the cat")
+todo.list.add("Wash the dog")
+todo.list.complete("Wash the cat")
+# => ["Wash the dog"]
+
+# 4
+todo = Tasks.new
+todo.list.add("Wash the cat")
+todo.list.complete("Wash the dog")
+# => fails "No such task."
+
 ```
 
 _Encode each example as a test. You can add to the above list as you go._
