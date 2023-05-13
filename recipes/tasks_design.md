@@ -49,26 +49,26 @@ todo.list
 
 # 2
 todo = Tasks.new
-todo.list.add("Wash the cat")
+todo.add("Wash the cat")
 # => ["Wash the cat"]
 
 # 3
 todo = Tasks.new
-todo.list.add("Wash the cat")
-todo.list.add("Wash the dog")
+todo.add("Wash the cat")
+todo.add("Wash the dog")
 # => ["Wash the cat", "Wash the dog"]
 
 # 4
 todo = Tasks.new
-todo.list.add("Wash the cat")
-todo.list.add("Wash the dog")
-todo.list.complete("Wash the cat")
+todo.add("Wash the cat")
+todo.add("Wash the dog")
+todo.complete("Wash the cat")
 # => ["Wash the dog"]
 
-# 4
+# 5
 todo = Tasks.new
-todo.list.add("Wash the cat")
-todo.list.complete("Wash the dog")
+todo.add("Wash the cat")
+todo.complete("Wash the dog")
 # => fails "No such task."
 
 ```
