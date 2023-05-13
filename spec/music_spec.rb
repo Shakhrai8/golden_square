@@ -1,27 +1,31 @@
 require 'music'
 
+
 RSpec.describe Music do
-  context "given no music tracks" do
-    it "returns an empty array" do
-      music = Music.new
-      expect(music.list).to eq []
+  describe "#add" do
+    before do
+      @music = Music.new
     end
-  end
-
-  context "given one music track" do
-    it "returns an array with one music track" do
-      music = Music.new
-      music.add("Jingle Bells")
-      expect(music.list).to eq ["Jingle Bells"]
+    
+    context "when adding a string to the music list" do
+      it "adds the string to the list" do
+        @music.add("pop")
+        expect(@music.list).to eq ["pop"]
+      end
     end
-  end
-
-  context "given one music track" do
-    it "returns an array with one music track" do
-      music = Music.new
-      music.add("Track_1")
-      music.add("Track_2")
-      expect(music.list).to eq ["Track_1", "Track_2"]
+    
+    context "when adding an integer to the music list" do
+      it "raises an error" do
+        expect { @music.add(123) }.to raise_error("Error! Expected string not an integer!")
+      end
+      
+      it "does not add the integer to the list" do
+        begin
+          @music.add(123)
+        rescue
+        end
+        expect(@music.list).to eq []
+      end
     end
   end
 end
