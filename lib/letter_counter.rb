@@ -10,6 +10,8 @@ class LetterCounter
     @text.chars.each do |char| # iterate over each character in the text string
       next unless is_letter?(char) # skip non-letter characters
       counter[char] = (counter[char] || 1) + 1 # increment the counter for the current character
+      #If counter['a'] is already set to some value, say 3, then this will increment it by 1: counter['a'] = 4
+      #If counter['a'] is not yet set, then this will set it to 1 and increment it by 1: counter['a'] = 2
       if counter[char] > most_common_count # check if the current character is now the most common
         most_common = char # update the most common letter
         most_common_count = counter[char] # update the count of the most common letter
