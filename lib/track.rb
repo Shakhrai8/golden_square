@@ -13,6 +13,6 @@ class Track
   end
 
   def format
-    # Returns a string of the form "TITLE by ARTIST"
+    return "#{title} by #{artist}"
   end
 end

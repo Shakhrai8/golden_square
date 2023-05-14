@@ -12,7 +12,7 @@ class MusicLibrary
   end
   
   def search_by_title(keyword) 
-    @tracks.select do |track|
+    return @tracks.select do |track|
       track.title.include?(keyword)
     end
   end
