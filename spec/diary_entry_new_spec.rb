@@ -1,62 +1,50 @@
 require 'diary_entry_new'
 
-
 RSpec.describe DiaryEntry do
-  context "#title" do
-    it "returns title" do
-      entry = DiaryEntry.new("Title_1", "Contents_1")
-      expect(entry.title).to eq "Title_1"
+  describe "when creating a new diary entry" do
+    it "returns a diary entry" do
+      diary_entry = DiaryEntry.new("Monday", "Lorem ipsum.")
+      expect(diary_entry.title).to eq("Monday")
+      expect(diary_entry.contents).to eq("Lorem ipsum.")
     end
   end
 
-  context "#contents" do
-    it "returns title" do
-      entry = DiaryEntry.new("Title_1", "Contents_1")
-      expect(entry.contents).to eq "Contents_1"
+  describe "when given a diary entry" do
+    it "returns the number of words in the entry" do
+      diary_entry = DiaryEntry.new("Monday", "Lorem ipsum.")
+      expect(diary_entry.count_words).to eq(2)
+    end
+
+    it "returns 0 for an empty entry" do
+      diary_entry = DiaryEntry.new("Monday", "")
+      expect(diary_entry.count_words).to eq(0)
     end
   end
 
-  context "#count_words" do
-    it "should return 10" do
-      entry_1 = DiaryEntry.new("Title_1", "Contents_1")
-      entry_2 = DiaryEntry.new("Title_2", "Four")
-      expect(entry_1.count_words).to eq 10
+  describe "when given a reading speed" do
+    let(:diary_entry) { DiaryEntry.new("Title", "one two three") }
+
+    it "returns the correct reading time for a given wpm" do
+      expect(diary_entry.reading_time(1)).to eq(3)
+      expect(diary_entry.reading_time(2)).to eq(2)
+      expect(diary_entry.reading_time(10)).to eq(1)
+    end
+
+    it "raises an error unless wpm is positive" do
+      expect { diary_entry.reading_time(-1) }.to raise_error(RuntimeError, "Wpm value must be above 0!")
     end
   end
 
-  context "#reading_time" do
-    it "fails" do
-      entry = DiaryEntry.new("Title_1", "Contents_1")
-      expect{ entry.reading_time(-1)}.to raise_error("Wpm value must be above 0!")
+  describe "when given a reading speed and number of minutes" do
+    let(:diary_entry) { DiaryEntry.new("Title", "one two three") }
+
+    it "returns a chunk for a given wpm and minutes" do
+      expect(diary_entry.reading_chunk(1, 2)).to eq("one two")
+      expect(diary_entry.reading_chunk(2, 1)).to eq("three")
     end
 
-    it "should return 1" do
-      entry = DiaryEntry.new("Title_1", "Contents_1")
-      expect(entry.reading_time(10)).to eq 1
-    end
-
-    it "should return 11" do
-      entry = DiaryEntry.new("Title_1", "12345678911")
-      expect(entry.reading_time(1)).to eq 11
-    end
-  end
-
-  context "#reading_chunk" do
-    it "fails" do
-      entry = DiaryEntry.new("Title_1", "12345678911")
-      expect{ entry.reading_chunk(-1, 10) }.to raise_error("Wpm value must be above 0!")
-    end
-
-    it "should return 'one' " do
-      entry = DiaryEntry.new("Title_1", "one two three")
-      expect(entry.reading_chunk(1, 1)).to eq "one"
-    end
-
-    it "should return 'three' " do
-      entry = DiaryEntry.new("Title_1", "one two three")
-      entry.reading_chunk(2, 1)
-      expect(entry.reading_chunk(1, 1)).to eq "three"
+    it "fails when given negative wpm" do
+      expect { diary_entry.reading_chunk(-1, 1) }.to raise_error(RuntimeError, "Wpm value must be above 0!")
     end
   end
 end
-      
