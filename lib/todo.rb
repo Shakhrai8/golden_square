@@ -5,7 +5,7 @@ class Todo
   end
 
   def task
-    return @task
+    @task
   end
 
   def mark_done!
@@ -13,6 +13,6 @@ class Todo
   end
 
   def done?
-    return @done
+    @done
   end
 end
